@@ -1,8 +1,15 @@
 import time
+import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.service import Service
+from selenium
+
+def send_telegram_message(message, bot_token, chat_id):
+    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+    data = {"chat_id": chat_id, "text": message}
+    response = requests.post(url, data=data)
+    return response.status_code == 200.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 # Initialize the Chrome driver
@@ -13,49 +20,50 @@ driver.get("https://alenka.ru")
 
 time.sleep(3)  # Wait for the page to load
 
-# Close any pop-ups if they appear
-def close_popup():
-    try:
-        close_button = driver.find_element(By.XPATH, "//button[@class='close']")
-        close_button.click()
-    except:
-        pass  # No pop-up found
+    # Close any pop-ups if they appear
+    def close_popup():
+        try:
+            close_button = driver.find_element(By.XPATH, "//button[@class='close']")
+            close_button.click()
+        except:
+            pass  # No pop-up found
+    
 
-close_popup()
-
-# Search for a product (e.g., "chocolate")
-search_box = driver.find_element(By.NAME, "q")
-search_box.send_keys("шоколад" + Keys.RETURN)
-
-time.sleep(3)  # Wait for search results to load
-
-# Select a product from the search results
-product = driver.find_element(By.XPATH, "//a[contains(@href, '/product/')]")
-product.click()
-
-time.sleep(3)  # Wait for the product page to load
-
-# Add the product to the cart
-add_to_cart_button = driver.find_element(By.XPATH, "//button[contains(text(), 'в корзину')]")
-add_to_cart_button.click()
-
-time.sleep(3)  # Wait for the product to be added to the cart
-
-# Proceed to the cart page
-cart_button = driver.find_element(By.XPATH, "//a[contains(@href, '/cart/')]")
-cart_button.click()
-
-time.sleep(3)  # Wait for the cart page to load
-
-# Proceed to checkout
-checkout_button = driver.find_element(By.XPATH, "//a[contains(@href, '/checkout/')]")
-checkout_button.click()
-
-time.sleep(3)  # Wait for the checkout page to load
-
-# Fill in the checkout form (assuming test data)
-name_field = driver.find_element(By.NAME, "name")
-phone_field = driver.find_element(By.NAME, "phone")
+try:close_popup()
+        
+        # Search for a product (e.g., "chocolate")
+            search_box = driver.find_element(By.NAME, "q")
+            search_box.send_keys("шоколад" + Keys.RETURN)
+        
+        time.sleep(3)  # Wait for search results to load
+        
+        # Select a product from the search results
+        product = driver.find_element(By.XPATH, "//a[contains(@href, '/product/')]")
+        product.click()
+        
+        time.sleep(3)  # Wait for the product page to load
+        
+        # Add the product to the cart
+        add_to_cart_button = driver.find_element(By.XPATH, "//button[contains(text(), 'в корзину')]")
+        add_to_cart_button.click()
+        
+        time.sleep(3)  # Wait for the product to be added to the cart
+        
+        # Proceed to the cart page
+        cart_button = driver.find_element(By.XPATH, "//a[contains(@href, '/cart/')]")
+        cart_button.click()
+        
+        time.sleep(3)  # Wait for the cart page to load
+        
+        # Proceed to checkout
+        checkout_button = driver.find_element(By.XPATH, "//a[contains(@href, '/checkout/')]")
+        checkout_button.click()
+        
+        time.sleep(3)  # Wait for the checkout page to load
+        
+        # Fill in the checkout form (assuming test data)
+        name_field = driver.find_element(By.NAME, "name")
+        phone_field = driver.find_element(By.NAME, "phone")
 email_field = driver.find_element(By.NAME, "email")
 name_field.send_keys("Авт"Тестирование"
 phone_field.send_keys("+79991234567")
@@ -70,3 +78,10 @@ comments_field.send_keys("Тестовый")
 
 # Close the browser
 driver.quit()
+
+except Exception as e:
+    message = f"Test failed: {str(e)}"
+    send_telegram_message(message, bot_token, chat_id)
+else:
+    message = "Test completed successfully"
+    send_telegram_message(message, bot_token, chat_id)
