@@ -57,9 +57,12 @@ time.sleep(3)  # Wait for the checkout page to load
 name_field = driver.find_element(By.NAME, "name")
 phone_field = driver.find_element(By.NAME, "phone")
 email_field = driver.find_element(By.NAME, "email")
-name_field.send_keys("Иван Иванов")
+name_field.send_keys("Авт"Тестирование"
 phone_field.send_keys("+79991234567")
-email_field.send_keys("test@example.com")
+email_field.send_keys"happygomakki@ya.ru"
+# Add comments to the order
+comments_field = driver.find_element(By.NAME, "comments")
+comments_field.send_keys("Тестовый")
 
 # Submit the order (this step is commented out to avoid placing an actual order)
 # submit_button = driver.find_element(By.XPATH, "//button[contains(text(), 'оформить заказ')]")
